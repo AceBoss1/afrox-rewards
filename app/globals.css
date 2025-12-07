@@ -1,0 +1,138 @@
+## 🎨 **app/globals.css**
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --afrox-gold: #EAB308;
+  --afrox-orange: #F59E0B;
+  --afrox-purple: #8B5CF6;
+  --afrox-blue: #3B82F6;
+  --afrox-green: #10B981;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: white;
+  min-height: 100vh;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(234, 179, 8, 0.5);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(234, 179, 8, 0.7);
+}
+
+/* Animations */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes flash {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes confetti {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+.heartbeat {
+  animation: heartbeat 1s ease-in-out infinite;
+}
+
+.flash-message {
+  animation: flash 0.5s ease-in-out;
+}
+
+/* Wheel canvas */
+canvas {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Prize glow effects */
+.prize-common {
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+}
+
+.prize-uncommon {
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+}
+
+.prize-rare {
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.prize-epic {
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.6);
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+.prize-legendary {
+  box-shadow: 0 0 30px rgba(234, 179, 8, 0.8);
+  animation: pulse-glow 1s ease-in-out infinite;
+}
+
+/* Disabled button */
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Loading spinner */
+.spinner {
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top: 3px solid #EAB308;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive text */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 12px;
+  }
+}
