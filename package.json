@@ -1,0 +1,32 @@
+## **package.json**
+
+```json
+{
+  "name": "afrox-rewards-hub",
+  "version": "1.0.0",
+  "description": "AfroX Rewards Hub - Engage, Earn, Win",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "14.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "lucide-react": "^0.263.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.17",
+    "postcss": "^8.4.33",
+    "tailwindcss": "^3.4.1",
+    "eslint": "^8.56.0",
+    "eslint-config-next": "14.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
