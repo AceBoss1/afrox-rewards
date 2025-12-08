@@ -1,4 +1,4 @@
-## **next.config.js**
+  // **next.config.js**
 
 ```javascript
 /** @type {import('next').NextConfig} */
