@@ -1,4 +1,4 @@
-## 📱 **app/layout.js**
+  // **app/layout.js**
 
 ```javascript
 import './globals.css'
