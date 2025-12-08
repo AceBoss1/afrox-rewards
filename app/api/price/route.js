@@ -1,4 +1,4 @@
-## 🔌 **app/api/price/route.js**
+  // **app/api/price/route.js**
 
 ```javascript
 import { NextResponse } from 'next/server';
