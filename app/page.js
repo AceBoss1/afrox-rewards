@@ -1,14 +1,17 @@
+// ============================================
+// FILE: app/page.js (REPLACE ENTIRE FILE)
+// ============================================
 'use client';
 
 import { useState, useEffect } from 'react';
-import Header from '@/components/Header';
-import PriceTicker from '@/components/PriceTicker';
-import UserDashboard from '@/components/UserDashboard';
-import SpinTab from '@/components/SpinTab';
-import GiveawayTab from '@/components/GiveawayTab';
-import LeaderboardTab from '@/components/LeaderboardTab';
-import RulesTab from '@/components/RulesTab';
-import FlashMessage from '@/components/FlashMessage';
+import Header from '../components/Header';
+import PriceTicker from '../components/PriceTicker';
+import UserDashboard from '../components/UserDashboard';
+import SpinTab from '../components/SpinTab';
+import GiveawayTab from '../components/GiveawayTab';
+import LeaderboardTab from '../components/LeaderboardTab';
+import RulesTab from '../components/RulesTab';
+import FlashMessage from '../components/FlashMessage';
 
 export default function Home() {
   const [currentTab, setCurrentTab] = useState('spin');
