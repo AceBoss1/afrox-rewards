@@ -1,4 +1,4 @@
-## 🎨 **tailwind.config.js**
+  // **tailwind.config.js**
 
 ```javascript
 /** @type {import('tailwindcss').Config} */
