@@ -1,4 +1,4 @@
-## 🎨 **postcss.config.js**
+  // **postcss.config.js**
 
 ```javascript
 module.exports = {
