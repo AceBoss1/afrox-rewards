@@ -1,7 +1,6 @@
 // ============================================
 // .eslintrc.json
 // ============================================
-// Save this file in the ROOT directory of your project
 
 {
   "extends": [
