@@ -1,6 +1,8 @@
-  // **app/globals.css**
+// ============================================
+// FILE: app/globals.css
+// COPY EVERYTHING BELOW (excluding this comment block)
+// ============================================
 
-```css
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -31,7 +33,6 @@ body {
   min-height: 100vh;
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -49,7 +50,6 @@ body {
   background: rgba(234, 179, 8, 0.7);
 }
 
-/* Animations */
 @keyframes heartbeat {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.05); }
@@ -73,13 +73,11 @@ body {
   animation: flash 0.5s ease-in-out;
 }
 
-/* Wheel canvas */
 canvas {
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
 }
 
-/* Prize glow effects */
 .prize-common {
   box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
 }
@@ -90,26 +88,21 @@ canvas {
 
 .prize-rare {
   box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
-  animation: pulse-glow 2s ease-in-out infinite;
 }
 
 .prize-epic {
   box-shadow: 0 0 25px rgba(245, 158, 11, 0.6);
-  animation: pulse-glow 1.5s ease-in-out infinite;
 }
 
 .prize-legendary {
   box-shadow: 0 0 30px rgba(234, 179, 8, 0.8);
-  animation: pulse-glow 1s ease-in-out infinite;
 }
 
-/* Disabled button */
 button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-/* Loading spinner */
 .spinner {
   border: 3px solid rgba(255, 255, 255, 0.1);
   border-top: 3px solid #EAB308;
@@ -124,7 +117,6 @@ button:disabled {
   100% { transform: rotate(360deg); }
 }
 
-/* Responsive text */
 @media (max-width: 768px) {
   html {
     font-size: 14px;
