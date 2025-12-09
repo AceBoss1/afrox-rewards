@@ -1,6 +1,7 @@
-  // **app/api/price/route.js**
+// ============================================
+// FILE: app/api/price/route.js
+// ============================================
 
-```javascript
 import { NextResponse } from 'next/server';
 
 export async function GET() {
@@ -14,7 +15,7 @@ export async function GET() {
         headers: {
           'Accept': 'application/json',
         },
-        next: { revalidate: 180 } // Cache for 180 seconds
+        next: { revalidate: 180 }
       }
     );
 
@@ -38,7 +39,6 @@ export async function GET() {
   } catch (error) {
     console.error('Price API Error:', error);
     
-    // Return fallback price
     return NextResponse.json({
       price: 0.000000009998,
       volume24h: 0,
@@ -50,7 +50,6 @@ export async function GET() {
   }
 }
 
-// Enable CORS for API route
 export async function OPTIONS() {
   return new NextResponse(null, {
     status: 200,
@@ -60,4 +59,65 @@ export async function OPTIONS() {
       'Access-Control-Allow-Headers': 'Content-Type',
     },
   });
+}
+
+
+// ============================================
+// FILE: app/layout.js
+// COPY EVERYTHING BELOW (excluding this comment block)
+// ============================================
+
+import './globals.css'
+import { Inter } from 'next/font/google'
+
+const inter = Inter({ subsets: ['latin'] })
+
+export const metadata = {
+  title: 'AfroX Rewards Hub - Engage, Earn, Win',
+  description: 'Free hourly giveaways + premium engagement features. No purchase necessary to participate.',
+  keywords: 'AfroX, crypto rewards, spin wheel, giveaway, blockchain, DeFi',
+  authors: [{ name: 'AfroX DAO Community of Trust' }],
+  openGraph: {
+    title: 'AfroX Rewards Hub',
+    description: 'Engage, Earn, Win - Free hourly giveaways',
+    url: 'https://rewards.afrox.one',
+    siteName: 'AfroX Rewards Hub',
+    images: [
+      {
+        url: '/afrodex_token.png',
+        width: 800,
+        height: 600,
+        alt: 'AfroX Token',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AfroX Rewards Hub',
+    description: 'Engage, Earn, Win - Free hourly giveaways',
+    images: ['/afrodex_token.png'],
+  },
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+  },
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/afrodex_token.png',
+  },
+}
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="theme-color" content="#1a1a2e" />
+      </head>
+      <body className={inter.className}>{children}</body>
+    </html>
+  )
 }
