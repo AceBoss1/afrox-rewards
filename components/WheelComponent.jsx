@@ -4,6 +4,7 @@ import { useRef, useEffect } from 'react';
 
 export default function WheelComponent({ wheel, rotation, isSpinning }) {
   const canvasRef = useRef(null);
+  const containerRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -16,15 +17,12 @@ export default function WheelComponent({ wheel, rotation, isSpinning }) {
     const segments = wheel.segments;
     const anglePerSegment = (2 * Math.PI) / segments;
 
+    // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    ctx.save();
-    ctx.translate(centerX, centerY);
-    ctx.rotate((rotation * Math.PI) / 180);
-    ctx.translate(-centerX, -centerY);
-
+    // Draw segments
     for (let i = 0; i < segments; i++) {
-      const startAngle = i * anglePerSegment;
+      const startAngle = i * anglePerSegment - Math.PI / 2;
       const endAngle = startAngle + anglePerSegment;
 
       ctx.beginPath();
@@ -37,6 +35,7 @@ export default function WheelComponent({ wheel, rotation, isSpinning }) {
       ctx.lineWidth = 3;
       ctx.stroke();
 
+      // Add text
       ctx.save();
       ctx.translate(centerX, centerY);
       ctx.rotate(startAngle + anglePerSegment / 2);
@@ -48,14 +47,21 @@ export default function WheelComponent({ wheel, rotation, isSpinning }) {
       ctx.restore();
     }
 
-    ctx.restore();
-
+    // Draw outer border (gold coin edge)
     ctx.beginPath();
     ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
     ctx.strokeStyle = '#FFD700';
-    ctx.lineWidth = 6;
+    ctx.lineWidth = 8;
     ctx.stroke();
 
+    // Add inner gold ring
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius - 5, 0, 2 * Math.PI);
+    ctx.strokeStyle = '#FFA500';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // Draw inner circle with multiplier
     ctx.beginPath();
     ctx.arc(centerX, centerY, 60, 0, 2 * Math.PI);
     ctx.fillStyle = '#1a1a2e';
@@ -64,39 +70,63 @@ export default function WheelComponent({ wheel, rotation, isSpinning }) {
     ctx.lineWidth = 4;
     ctx.stroke();
 
+    // Draw multiplier text
     ctx.fillStyle = '#EAB308';
-    ctx.font = 'bold 28px Arial';
+    ctx.font = 'bold 32px Arial';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText(`${wheel.multiplier}x`, centerX, centerY);
-
-    // Draw pointer pointing DOWN
-    ctx.beginPath();
-    ctx.moveTo(centerX, centerY - radius - 30);
-    ctx.lineTo(centerX - 20, centerY - radius - 10);
-    ctx.lineTo(centerX + 20, centerY - radius - 10);
-    ctx.closePath();
-    ctx.fillStyle = '#FFD700';
-    ctx.fill();
-    ctx.strokeStyle = '#000';
-    ctx.lineWidth = 3;
-    ctx.stroke();
-
-    ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
-    ctx.shadowBlur = 10;
-    ctx.shadowOffsetX = 2;
-    ctx.shadowOffsetY = 2;
-  }, [rotation, wheel]);
+    ctx.fillText(`${wheel.multiplier}x`, centerX, centerY - 5);
+    ctx.font = 'bold 12px Arial';
+    ctx.fillStyle = '#fff';
+    ctx.fillText('AfroX', centerX, centerY + 15);
+  }, [wheel]);
 
   return (
-    <div className="flex justify-center">
-      <canvas
-        ref={canvasRef}
-        width={450}
-        height={450}
-        className="transition-transform duration-[15000ms] ease-out"
-        style={{ filter: 'drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5))' }}
-      />
+    <div className="flex flex-col items-center justify-center" ref={containerRef}>
+      {/* Pointer Arrow - Points DOWN */}
+      <div className="relative z-10 mb-[-20px]">
+        <div className="w-0 h-0 border-l-[20px] border-l-transparent border-r-[20px] border-r-transparent border-t-[30px] border-t-yellow-400 drop-shadow-lg"
+             style={{ filter: 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5))' }}>
+        </div>
+      </div>
+
+      {/* Wheel Container - THIS ROTATES */}
+      <div 
+        className="relative"
+        style={{
+          transform: `rotate(${rotation}deg)`,
+          transition: isSpinning ? 'transform 15s cubic-bezier(0.25, 0.1, 0.25, 1.0)' : 'none',
+        }}
+      >
+        <canvas
+          ref={canvasRef}
+          width={450}
+          height={450}
+          style={{ 
+            filter: 'drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5))',
+            maxWidth: '100%',
+            height: 'auto'
+          }}
+        />
+      </div>
+
+      {/* Animated particles in background */}
+      {isSpinning && (
+        <div className="absolute inset-0 pointer-events-none">
+          {[...Array(20)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-2 h-2 bg-yellow-400 rounded-full animate-pulse"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 2}s`,
+                opacity: Math.random() * 0.5 + 0.3
+              }}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
