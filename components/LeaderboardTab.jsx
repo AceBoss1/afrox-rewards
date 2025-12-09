@@ -1,7 +1,3 @@
-// ============================================
-// components/LeaderboardTab.jsx
-// ============================================
-
 'use client';
 
 export default function LeaderboardTab({ userData }) {
