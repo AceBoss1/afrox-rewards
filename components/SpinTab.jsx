@@ -1,7 +1,3 @@
-// ============================================
-// components/SpinTab.jsx
-// ============================================
-
 'use client';
 
 import { useState } from 'react';
