@@ -111,6 +111,14 @@ export default function SpinTab({
     return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   };
 
+  const playHeartbeatSound = () => {
+    if (typeof Audio !== 'undefined') {
+      const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIGGi56OubMw0IX6/o7qFR');
+      audio.volume = 0.5;
+      audio.play().catch(e => console.log('Audio play failed:', e));
+    }
+  };
+
   const currentWheel = wheels[`${userTier === 'free' ? '1' : userTier === 'premium' ? '2' : '5'}x`];
 
   const spinWheel = () => {
@@ -133,26 +141,28 @@ export default function SpinTab({
 
     setIsSpinning(true);
     
-    // Select random prize
     const prizeIndex = Math.floor(Math.random() * currentWheel.segments);
     const prize = currentWheel.prizes[prizeIndex];
     
-    // Spin configuration
-    const spinDuration = 15000 + Math.random() * 20000; // 15-35 seconds
-    const minRotations = 8; // Minimum 8 full spins
-    const maxRotations = 12; // Maximum 12 full spins
+    const spinDuration = 18000 + Math.random() * 17000;
+    const minRotations = 10;
+    const maxRotations = 15;
     const rotations = minRotations + Math.floor(Math.random() * (maxRotations - minRotations + 1));
     
-    // Calculate where to land
     const segmentAngle = 360 / currentWheel.segments;
-    // Add offset so pointer (at top) points to the prize
-    const targetAngle = (prizeIndex * segmentAngle) + (segmentAngle / 2);
+    const targetAngle = 360 - (prizeIndex * segmentAngle) - (segmentAngle / 2);
     const totalRotation = (rotations * 360) + targetAngle;
     
-    setRotation(rotation + totalRotation);
+    setRotation(prev => prev + totalRotation);
     
     setTimeout(() => {
-      console.log('💓 Heartbeat sound playing in last 5 seconds...');
+      console.log('💓 HEARTBEAT SOUND TRIGGERED - Last 5 seconds!');
+      playHeartbeatSound();
+      const heartbeatInterval = setInterval(() => {
+        playHeartbeatSound();
+      }, 800);
+      
+      setTimeout(() => clearInterval(heartbeatInterval), 5000);
     }, spinDuration - 5000);
     
     setTimeout(() => {
