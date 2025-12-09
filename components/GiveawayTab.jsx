@@ -1,7 +1,3 @@
-// ============================================
-// components/GiveawayTab.jsx
-// ============================================
-
 'use client';
 
 import { useState, useEffect } from 'react';
