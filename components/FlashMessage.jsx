@@ -1,7 +1,3 @@
-// ============================================
-// components/FlashMessage.jsx
-// ============================================
-
 'use client';
 
 export default function FlashMessage({ flashMessage, flashCount, userData }) {
