@@ -1,7 +1,3 @@
-// ============================================
-// components/RulesTab.jsx
-// ============================================
-
 'use client';
 
 export default function RulesTab() {
