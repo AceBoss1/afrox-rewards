@@ -133,34 +133,33 @@ export default function SpinTab({
 
     setIsSpinning(true);
     
-    // Random prize selection
+    // Select random prize
     const prizeIndex = Math.floor(Math.random() * currentWheel.segments);
     const prize = currentWheel.prizes[prizeIndex];
     
-    // Calculate rotation - IMPORTANT: This makes it spin!
+    // Spin configuration
     const spinDuration = 15000 + Math.random() * 20000; // 15-35 seconds
-    const rotations = 5 + Math.floor(Math.random() * 6); // 5-10 full rotations
-    const segmentAngle = 360 / currentWheel.segments;
+    const minRotations = 8; // Minimum 8 full spins
+    const maxRotations = 12; // Maximum 12 full spins
+    const rotations = minRotations + Math.floor(Math.random() * (maxRotations - minRotations + 1));
     
-    // Calculate where to stop (target segment)
-    const targetAngle = prizeIndex * segmentAngle;
+    // Calculate where to land
+    const segmentAngle = 360 / currentWheel.segments;
+    // Add offset so pointer (at top) points to the prize
+    const targetAngle = (prizeIndex * segmentAngle) + (segmentAngle / 2);
     const totalRotation = (rotations * 360) + targetAngle;
     
-    // Set rotation - THIS TRIGGERS THE ANIMATION
     setRotation(rotation + totalRotation);
     
-    // Heartbeat sound in last 5 seconds
     setTimeout(() => {
-      console.log('💓 Heartbeat sound playing...');
+      console.log('💓 Heartbeat sound playing in last 5 seconds...');
     }, spinDuration - 5000);
     
-    // After spin completes
     setTimeout(() => {
       setIsSpinning(false);
       setPrizeWon(prize);
       setShowWinModal(true);
       
-      // Show confetti for special prizes or big wins
       const isSpecialPrize = prize.type !== 'afrox';
       const isBigWin = prize.type === 'afrox' && prize.amount >= 100000000;
       
@@ -169,7 +168,6 @@ export default function SpinTab({
         setTimeout(() => setShowConfetti(false), 5000);
       }
       
-      // Update user data
       const newTokens = { ...userData.spinTokens };
       newTokens[userTier] = newTokens[userTier] - tokensNeeded;
       
@@ -179,22 +177,18 @@ export default function SpinTab({
         entries: prize.type === 'entry' ? userData.entries + 1 : userData.entries
       });
       
-      // Set cooldown
       if (userTier !== 'vip') {
         updateCooldowns({ [userTier]: currentWheel.cooldown });
       }
       
-      // Trigger flash message (shows to all users)
       triggerFlash(prize, userData.username);
       
-      // Play win sound based on rarity
       console.log(`🎵 Playing ${prize.rarity} win sound!`);
     }, spinDuration);
   };
 
   return (
     <div className="space-y-6">
-      {/* Confetti Effect */}
       {showConfetti && (
         <div className="fixed inset-0 pointer-events-none z-50">
           {[...Array(100)].map((_, i) => (
@@ -213,7 +207,6 @@ export default function SpinTab({
         </div>
       )}
 
-      {/* Tier Selector */}
       <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
         <h3 className="font-bold text-lg mb-4">Select Your Wheel</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -254,7 +247,6 @@ export default function SpinTab({
         </div>
       </div>
 
-      {/* Spin Wheel */}
       <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10">
         <WheelComponent
           wheel={currentWheel}
@@ -282,4 +274,71 @@ export default function SpinTab({
         </div>
       </div>
 
-      {/* Prize Table - CONTINUES IN NEXT MESSAGE... */}
+      <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+        <h3 className="font-bold text-lg mb-4">Prize Table - {currentWheel.multiplier}x Multiplier</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {currentWheel.prizes.map((prize, idx) => (
+            <div 
+              key={idx} 
+              className={`p-3 rounded-lg border ${
+                prize.rarity === 'legendary' ? 'border-yellow-400 bg-yellow-500/10' :
+                prize.rarity === 'epic' ? 'border-orange-400 bg-orange-500/10' :
+                prize.rarity === 'rare' ? 'border-purple-400 bg-purple-500/10' :
+                prize.rarity === 'uncommon' ? 'border-green-400 bg-green-500/10' :
+                'border-blue-400 bg-blue-500/10'
+              }`}
+            >
+              <div className="text-center">
+                <div className="text-sm font-bold mb-1">
+                  {prize.type === 'afrox' ? formatAfroX(prize.amount) :
+                   prize.type === 'announcement' ? '📢 Announce' :
+                   prize.type === 'badge' ? '🏅 Badge' :
+                   '🎟️ Entry'}
+                </div>
+                {prize.type === 'afrox' && (
+                  <div className="text-xs text-gray-400">{formatUSD(prize.amount)}</div>
+                )}
+                <div className="text-xs text-gray-500 mt-1">
+                  {(100 / currentWheel.segments).toFixed(2)}%
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {showWinModal && prizeWon && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-gradient-to-br from-slate-900 to-purple-900 rounded-2xl p-8 max-w-md w-full border-4 border-yellow-400 shadow-2xl">
+            <div className="text-center">
+              <div className="text-6xl mb-4">🎉</div>
+              <h2 className="text-3xl font-bold mb-4">Congratulations!</h2>
+              <p className="text-gray-300 mb-6">You won:</p>
+              <div className="text-5xl font-bold text-yellow-400 mb-2">
+                {prizeWon.type === 'afrox' ? formatAfroX(prizeWon.amount) :
+                 prizeWon.type === 'announcement' ? '📢' :
+                 prizeWon.type === 'badge' ? '🏅' :
+                 '🎟️'}
+              </div>
+              <p className="text-xl mb-6">
+                {prizeWon.type === 'afrox' ? `AfroX (${formatUSD(prizeWon.amount)})` :
+                 prizeWon.type === 'announcement' ? 'Sitewide Announcement' :
+                 prizeWon.type === 'badge' ? '7-Day Pro-Spinner Badge' :
+                 'Reward Entry'}
+              </p>
+              {prizeWon.type === 'afrox' && (
+                <p className="text-sm text-gray-400 mb-6">Added to unclaimed balance. Convert to use.</p>
+              )}
+              <button 
+                onClick={() => setShowWinModal(false)} 
+                className="bg-yellow-500 text-black px-8 py-3 rounded-xl font-bold hover:bg-yellow-400 transition"
+              >
+                Awesome!
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
