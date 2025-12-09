@@ -1,6 +1,5 @@
 ## 🚫 **.gitignore**
 
-```gitignore
 # Dependencies
 /node_modules
 /.pnp
@@ -45,4 +44,3 @@ next-env.d.ts
 *.swp
 *.swo
 *~
-```
