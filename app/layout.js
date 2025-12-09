@@ -13,42 +13,25 @@ export const metadata = {
     description: 'Engage, Earn, Win - Free hourly giveaways',
     url: 'https://rewards.afrox.one',
     siteName: 'AfroX Rewards Hub',
-    images: [
-      {
-        url: '/afrodex_token.png',
-        width: 800,
-        height: 600,
-        alt: 'AfroX Token',
-      },
-    ],
     locale: 'en_US',
     type: 'website',
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'AfroX Rewards Hub',
-    description: 'Engage, Earn, Win - Free hourly giveaways',
-    images: ['/afrodex_token.png'],
-  },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-  },
   icons: {
     icon: '/favicon.ico',
-    apple: '/afrodex_token.png',
   },
+}
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: '#1a1a2e',
 }
 
 export default function RootLayout({ children }) {
   return (
-    
-      
-        
-        
-      
-      {children}
-    
+    <html lang="en">
+      <body className={inter.className}>{children}</body>
+    </html>
   )
 }
