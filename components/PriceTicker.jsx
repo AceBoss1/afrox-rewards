@@ -1,7 +1,3 @@
-// ============================================
-// components/PriceTicker.jsx
-// ============================================
-
 'use client';
 
 export default function PriceTicker({ afroxPrice, lastPriceUpdate }) {
