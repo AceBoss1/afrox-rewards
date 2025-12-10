@@ -52,6 +52,15 @@ export default function Header({ currentTab, setCurrentTab }) {
               <span className="font-medium">Leaderboard</span>
             </button>
             <button 
+              onClick={() => setCurrentTab('profile')} 
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${
+                currentTab === 'profile' ? 'bg-yellow-500 text-black' : 'hover:bg-white/10'
+              }`}
+            >
+              <User className="w-4 h-4" />
+              <span className="font-medium">Profile</span>
+            </button>
+            <button 
               onClick={() => setCurrentTab('rules')} 
               className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${
                 currentTab === 'rules' ? 'bg-yellow-500 text-black' : 'hover:bg-white/10'
