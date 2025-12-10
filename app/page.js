@@ -191,7 +191,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 text-center text-gray-400 text-sm space-y-2">
           <p>💱 AfroX tokens are rewards for platform engagement. Trading value may fluctuate. Not financial advice.</p>
           <p>🔞 18+ ONLY | Not available in restricted regions</p>
-          <p>© 2024 AfroX DAO Community of Trust • rewards.afrox.one</p>
+          <p>© 2025 AfroX DAO Community of Trust • rewards.afrox.one</p>
         </div>
       </footer>
     </div>
