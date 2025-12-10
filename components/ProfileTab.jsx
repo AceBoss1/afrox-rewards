@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { User, Camera, Edit3, Award, TrendingUp, Calendar } from 'lucide-react';
+import { Camera, Edit3, Award, TrendingUp, Calendar } from 'lucide-react';
 
 export default function ProfileTab({ userData, updateUserData, userTier }) {
   const [isEditingUsername, setIsEditingUsername] = useState(false);
