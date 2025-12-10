@@ -8,6 +8,8 @@ export default function ProfileTab({ userData, updateUserData, userTier }) {
   const [newUsername, setNewUsername] = useState(userData.username);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [accountId] = useState(`AFX-${Math.floor(Math.random() * 100000)}`); // Static ID
 
   const canChangeUsername = userTier === 'premium' || userTier === 'vip';
   const canChangeImage = userTier === 'vip';
@@ -243,7 +245,7 @@ export default function ProfileTab({ userData, updateUserData, userTier }) {
             </div>
             <div className="flex justify-between items-center p-3 bg-white/5 rounded-lg">
               <span className="text-gray-400">Account ID</span>
-              <span className="font-mono text-xs text-gray-500">AFX-{Math.floor(Math.random() * 100000)}</span>
+              <span className="font-mono text-xs text-gray-500">{accountId}</span>
             </div>
           </div>
         </div>
@@ -279,23 +281,178 @@ export default function ProfileTab({ userData, updateUserData, userTier }) {
         </div>
       </div>
 
-      {/* Upgrade Prompt for Free/Premium Users */}
+      {/* Upgrade Prompt */}
       {userTier !== 'vip' && (
         <div className="bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/50 rounded-xl p-6">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
               <h3 className="text-xl font-bold mb-2">
-                {userTier === 'free' ? '⭐ Upgrade to Premium' : '👑 Upgrade to VIP'}
+                🍀 Feeling lucky? Upgrade now!
               </h3>
               <p className="text-gray-300">
-                {userTier === 'free' 
-                  ? 'Change your username once per month + 2x spin multiplier' 
-                  : 'Unlimited username changes + custom profile image + 5x spin multiplier'}
+                Compare tiers and choose the best plan for you
               </p>
             </div>
-            <button className="bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-8 py-3 rounded-xl font-bold hover:from-yellow-500 hover:to-orange-600 transition">
-              Upgrade Now
+            <button 
+              onClick={() => setShowUpgradeModal(true)}
+              className="bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-8 py-3 rounded-xl font-bold hover:from-yellow-500 hover:to-orange-600 transition"
+            >
+              Compare Tiers
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* Upgrade Comparison Modal */}
+      {showUpgradeModal && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto">
+          <div className="bg-gradient-to-br from-slate-900 to-purple-900 rounded-2xl p-8 max-w-5xl w-full border-4 border-yellow-400 max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-3xl font-bold">Choose Your Tier</h2>
+              <button 
+                onClick={() => setShowUpgradeModal(false)}
+                className="text-gray-400 hover:text-white text-2xl"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* FREE Tier */}
+              <div className="bg-white/5 rounded-xl p-6 border-2 border-blue-400">
+                <div className="text-center mb-4">
+                  <h3 className="text-2xl font-bold text-blue-400">FREE</h3>
+                  <p className="text-4xl font-bold mt-2">$0</p>
+                  <p className="text-sm text-gray-400">forever</p>
+                </div>
+                <ul className="space-y-3 mb-6">
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400">✓</span>
+                    <span>1 spin per hour (168 spins/week)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400">✓</span>
+                    <span>1x multiplier</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400">✓</span>
+                    <span>Auto-generated username</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400">✓</span>
+                    <span>Default profile image</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400">✓</span>
+                    <span>Free hourly giveaway entries</span>
+                  </li>
+                </ul>
+                {userTier === 'free' && (
+                  <div className="bg-blue-500/20 text-center py-2 rounded-lg font-bold">
+                    Current Plan
+                  </div>
+                )}
+              </div>
+
+              {/* PREMIUM Tier */}
+              <div className="bg-white/5 rounded-xl p-6 border-2 border-green-400">
+                <div className="text-center mb-4">
+                  <h3 className="text-2xl font-bold text-green-400">PREMIUM</h3>
+                  <p className="text-4xl font-bold mt-2">$7.20</p>
+                  <p className="text-sm text-gray-400">per week</p>
+                </div>
+                <ul className="space-y-3 mb-6">
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400">✓</span>
+                    <span>1,008 spins/week</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400">✓</span>
+                    <span>2x multiplier</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400">✓</span>
+                    <span>Change username (1x/month)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400">✓</span>
+                    <span>50% fewer ads</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400">✓</span>
+                    <span>Priority support</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400">✓</span>
+                    <span>Exclusive badge</span>
+                  </li>
+                </ul>
+                {userTier === 'premium' ? (
+                  <div className="bg-green-500/20 text-center py-2 rounded-lg font-bold">
+                    Current Plan
+                  </div>
+                ) : (
+                  <button className="w-full bg-green-500 hover:bg-green-400 text-white py-3 rounded-lg font-bold transition">
+                    Upgrade to Premium
+                  </button>
+                )}
+              </div>
+
+              {/* VIP Tier */}
+              <div className="bg-white/5 rounded-xl p-6 border-2 border-yellow-400 relative overflow-hidden">
+                <div className="absolute top-0 right-0 bg-yellow-400 text-black px-3 py-1 text-xs font-bold">
+                  BEST VALUE
+                </div>
+                <div className="text-center mb-4">
+                  <h3 className="text-2xl font-bold text-yellow-400">VIP</h3>
+                  <p className="text-4xl font-bold mt-2">$20</p>
+                  <p className="text-sm text-gray-400">per week</p>
+                </div>
+                <ul className="space-y-3 mb-6">
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400">✓</span>
+                    <span>3,500 spins/week</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400">✓</span>
+                    <span>5x multiplier</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400">✓</span>
+                    <span>Unlimited username changes</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400">✓</span>
+                    <span>Custom profile image</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400">✓</span>
+                    <span>Zero ads</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400">✓</span>
+                    <span>VIP tournaments</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400">✓</span>
+                    <span>Yearly exclusive NFT</span>
+                  </li>
+                </ul>
+                {userTier === 'vip' ? (
+                  <div className="bg-yellow-500/20 text-center py-2 rounded-lg font-bold">
+                    Current Plan
+                  </div>
+                ) : (
+                  <button className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black py-3 rounded-lg font-bold transition">
+                    Upgrade to VIP
+                  </button>
+                )}
+              </div>
+            </div>
+
+            <div className="mt-6 text-center text-sm text-gray-400">
+              <p>All tiers include free hourly giveaway entries. No purchase necessary to win.</p>
+            </div>
           </div>
         </div>
       )}
