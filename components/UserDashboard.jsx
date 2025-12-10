@@ -100,15 +100,24 @@ export default function UserDashboard({ userData, updateUserData, afroxPrice }) 
         <div className="space-y-3">
           <div className="flex justify-between items-center">
             <span className="text-gray-400">Free (1x)</span>
-            <span className="font-bold">{userData.spinTokens.free}</span>
+            <div className="text-right">
+              <span className="font-bold">{userData.spinTokens.free}</span>
+              <p className="text-xs text-gray-500">168 spins/week</p>
+            </div>
           </div>
           <div className="flex justify-between items-center">
             <span className="text-gray-400">Premium (2x)</span>
-            <span className="font-bold">{userData.spinTokens.premium}</span>
+            <div className="text-right">
+              <span className="font-bold">{userData.spinTokens.premium}</span>
+              <p className="text-xs text-gray-500">1,008 spins/week</p>
+            </div>
           </div>
           <div className="flex justify-between items-center">
             <span className="text-gray-400">VIP (5x)</span>
-            <span className="font-bold">{userData.spinTokens.vip}</span>
+            <div className="text-right">
+              <span className="font-bold">{userData.spinTokens.vip}</span>
+              <p className="text-xs text-gray-500">3,500 spins/week</p>
+            </div>
           </div>
           <button className="w-full bg-blue-500 text-white px-4 py-2 rounded-lg font-bold hover:bg-blue-400 transition mt-2">
             Buy 120 Spins (100M AfroX)
