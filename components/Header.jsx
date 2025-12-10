@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Coins, Gift, Trophy, Award, Menu, X } from 'lucide-react';
+import { Coins, Gift, Trophy, Award, Menu, X, User } from 'lucide-react';
 
 export default function Header({ currentTab, setCurrentTab }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -100,6 +100,12 @@ export default function Header({ currentTab, setCurrentTab }) {
               className="w-full text-left px-4 py-2 rounded-lg hover:bg-white/10"
             >
               Leaderboard
+            </button>
+            <button 
+              onClick={() => { setCurrentTab('profile'); setMobileMenuOpen(false); }} 
+              className="w-full text-left px-4 py-2 rounded-lg hover:bg-white/10"
+            >
+              Profile
             </button>
             <button 
               onClick={() => { setCurrentTab('rules'); setMobileMenuOpen(false); }} 
