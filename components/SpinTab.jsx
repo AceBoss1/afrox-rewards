@@ -153,7 +153,6 @@ export default function SpinTab({
     
     // FIXED: Calculate final position relative to 0, not accumulated rotation
     // Pointer is at top (0 degrees), segments start at top and go clockwise
-    const normalizedCurrentRotation = rotation % 360;
     const targetAngle = 360 - (prizeIndex * segmentAngle);
     const finalRotation = (rotations * 360) + targetAngle;
     
