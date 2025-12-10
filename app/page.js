@@ -1,15 +1,15 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Header from '../components/Header';
-import PriceTicker from '../components/PriceTicker';
-import UserDashboard from '../components/UserDashboard';
-import SpinTab from '../components/SpinTab';
-import GiveawayTab from '../components/GiveawayTab';
-import LeaderboardTab from '../components/LeaderboardTab';
-import RulesTab from '../components/RulesTab';
-import FlashMessage from '../components/FlashMessage';
-import ProfileTab from '../components/ProfileTab';
+import Header from '@/components/Header';
+import PriceTicker from '@/components/PriceTicker';
+import UserDashboard from '@/components/UserDashboard';
+import SpinTab from '@/components/SpinTab';
+import GiveawayTab from '@/components/GiveawayTab';
+import LeaderboardTab from '@/components/LeaderboardTab';
+import RulesTab from '@/components/RulesTab';
+import FlashMessage from '@/components/FlashMessage';
+import ProfileTab from '@/components/ProfileTab';
 
 export default function Home() {
   const [currentTab, setCurrentTab] = useState('spin');
@@ -42,6 +42,7 @@ export default function Home() {
     vip: 0
   });
 
+  // Fetch AfroX price
   useEffect(() => {
     const fetchPrice = async () => {
       try {
@@ -61,6 +62,7 @@ export default function Home() {
     return () => clearInterval(priceInterval);
   }, []);
 
+  // Cooldown timer
   useEffect(() => {
     const cooldownInterval = setInterval(() => {
       setCooldowns(prev => ({
@@ -73,6 +75,7 @@ export default function Home() {
     return () => clearInterval(cooldownInterval);
   }, []);
 
+  // Flash message effect
   useEffect(() => {
     if (flashMessage && flashCount > 0) {
       const timer = setTimeout(() => {
@@ -171,13 +174,13 @@ export default function Home() {
           />
         )}
 
-      {currentTab === 'profile' && (
-        <ProfileTab
-    userData={userData}
-    updateUserData={updateUserData}
-    userTier={userTier}
-      />
-    )}
+        {currentTab === 'profile' && (
+          <ProfileTab
+            userData={userData}
+            updateUserData={updateUserData}
+            userTier={userTier}
+          />
+        )}
 
         {currentTab === 'rules' && (
           <RulesTab />
@@ -188,7 +191,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 text-center text-gray-400 text-sm space-y-2">
           <p>💱 AfroX tokens are rewards for platform engagement. Trading value may fluctuate. Not financial advice.</p>
           <p>🔞 18+ ONLY | Not available in restricted regions</p>
-          <p>© 2024 AfroX DAO Community of Trust • rewards.afrox.one</p>
+          <p>© 2025 AfroX DAO Community of Trust • rewards.afrox.one</p>
         </div>
       </footer>
     </div>
