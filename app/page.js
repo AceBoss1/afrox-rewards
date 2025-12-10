@@ -9,6 +9,7 @@ import GiveawayTab from '../components/GiveawayTab';
 import LeaderboardTab from '../components/LeaderboardTab';
 import RulesTab from '../components/RulesTab';
 import FlashMessage from '../components/FlashMessage';
+import ProfileTab from '../components/ProfileTab';
 
 export default function Home() {
   const [currentTab, setCurrentTab] = useState('spin');
@@ -169,6 +170,14 @@ export default function Home() {
             userData={userData}
           />
         )}
+
+      {currentTab === 'profile' && (
+        <ProfileTab
+    userData={userData}
+    updateUserData={updateUserData}
+    userTier={userTier}
+      />
+    )}
 
         {currentTab === 'rules' && (
           <RulesTab />
