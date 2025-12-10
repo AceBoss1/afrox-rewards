@@ -150,10 +150,15 @@ export default function SpinTab({
     const rotations = minRotations + Math.floor(Math.random() * (maxRotations - minRotations + 1));
     
     const segmentAngle = 360 / currentWheel.segments;
-    const targetAngle = 360 - (prizeIndex * segmentAngle) - (segmentAngle / 2);
-    const totalRotation = (rotations * 360) + targetAngle;
     
-    setRotation(prev => prev + totalRotation);
+    // FIXED: Calculate final position relative to 0, not accumulated rotation
+    // Pointer is at top (0 degrees), segments start at top and go clockwise
+    const normalizedCurrentRotation = rotation % 360;
+    const targetAngle = 360 - (prizeIndex * segmentAngle);
+    const finalRotation = (rotations * 360) + targetAngle;
+    
+    // Set absolute rotation (not relative)
+    setRotation(finalRotation);
     
     setTimeout(() => {
       console.log('💓 HEARTBEAT SOUND TRIGGERED - Last 5 seconds!');
@@ -193,7 +198,7 @@ export default function SpinTab({
       
       triggerFlash(prize, userData.username);
       
-      console.log(`🎵 Playing ${prize.rarity} win sound!`);
+      console.log(`🎵 ${prize.rarity} win! Prize: ${prize.value}`);
     }, spinDuration);
   };
 
