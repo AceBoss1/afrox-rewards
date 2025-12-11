@@ -5,7 +5,7 @@ import Header from '@/components/Header';
 import PriceTicker from '@/components/PriceTicker';
 import UserDashboard from '@/components/UserDashboard';
 import SpinTab from '@/components/SpinTab';
-import SpinTab from '@/components/RouletteTab';
+import RouletteTab from '@/components/RouletteTab';
 import GiveawayTab from '@/components/GiveawayTab';
 import LeaderboardTab from '@/components/LeaderboardTab';
 import RulesTab from '@/components/RulesTab';
