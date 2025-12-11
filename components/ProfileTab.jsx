@@ -358,8 +358,8 @@ export default function ProfileTab({ userData, updateUserData, userTier }) {
               <div className="bg-white/5 rounded-xl p-6 border-2 border-green-400">
                 <div className="text-center mb-4">
                   <h3 className="text-2xl font-bold text-green-400">PREMIUM</h3>
-                  <p className="text-4xl font-bold mt-2">$7.20</p>
-                  <p className="text-sm text-gray-400">per week</p>
+                  <p className="text-4xl font-bold mt-2">720M AfroX</p>
+                  <p className="text-sm text-gray-400">per week (~$7.20)</p>
                 </div>
                 <ul className="space-y-3 mb-6">
                   <li className="flex items-start gap-2">
@@ -405,8 +405,8 @@ export default function ProfileTab({ userData, updateUserData, userTier }) {
                 </div>
                 <div className="text-center mb-4">
                   <h3 className="text-2xl font-bold text-yellow-400">VIP</h3>
-                  <p className="text-4xl font-bold mt-2">$20</p>
-                  <p className="text-sm text-gray-400">per week</p>
+                  <p className="text-4xl font-bold mt-2">2B AfroX</p>
+                  <p className="text-sm text-gray-400">per week (~$20)</p>
                 </div>
                 <ul className="space-y-3 mb-6">
                   <li className="flex items-start gap-2">
