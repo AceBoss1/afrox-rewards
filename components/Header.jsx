@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Coins, Gift, Trophy, Award, Menu, X, User } from 'lucide-react';
+import { Coins, Gift, Trophy, Award, Menu, X, User, Target } from 'lucide-react';
 
 export default function Header({ currentTab, setCurrentTab }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -23,7 +23,7 @@ export default function Header({ currentTab, setCurrentTab }) {
           </div>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="hidden md:flex items-center gap-4">
             <button 
               onClick={() => setCurrentTab('spin')} 
               className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${
@@ -32,6 +32,15 @@ export default function Header({ currentTab, setCurrentTab }) {
             >
               <Coins className="w-4 h-4" />
               <span className="font-medium">Spin</span>
+            </button>
+            <button 
+              onClick={() => setCurrentTab('roulette')} 
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${
+                currentTab === 'roulette' ? 'bg-yellow-500 text-black' : 'hover:bg-white/10'
+              }`}
+            >
+              <Target className="w-4 h-4" />
+              <span className="font-medium">Roulette</span>
             </button>
             <button 
               onClick={() => setCurrentTab('giveaway')} 
@@ -87,31 +96,37 @@ export default function Header({ currentTab, setCurrentTab }) {
               onClick={() => { setCurrentTab('spin'); setMobileMenuOpen(false); }} 
               className="w-full text-left px-4 py-2 rounded-lg hover:bg-white/10"
             >
-              Spin
+              🎰 Spin
+            </button>
+            <button 
+              onClick={() => { setCurrentTab('roulette'); setMobileMenuOpen(false); }} 
+              className="w-full text-left px-4 py-2 rounded-lg hover:bg-white/10"
+            >
+              🎯 Roulette
             </button>
             <button 
               onClick={() => { setCurrentTab('giveaway'); setMobileMenuOpen(false); }} 
               className="w-full text-left px-4 py-2 rounded-lg hover:bg-white/10"
             >
-              Giveaway
+              🎁 Giveaway
             </button>
             <button 
               onClick={() => { setCurrentTab('leaderboard'); setMobileMenuOpen(false); }} 
               className="w-full text-left px-4 py-2 rounded-lg hover:bg-white/10"
             >
-              Leaderboard
+              🏆 Leaderboard
             </button>
             <button 
               onClick={() => { setCurrentTab('profile'); setMobileMenuOpen(false); }} 
               className="w-full text-left px-4 py-2 rounded-lg hover:bg-white/10"
             >
-              Profile
+              👤 Profile
             </button>
             <button 
               onClick={() => { setCurrentTab('rules'); setMobileMenuOpen(false); }} 
               className="w-full text-left px-4 py-2 rounded-lg hover:bg-white/10"
             >
-              Rules
+              📋 Rules
             </button>
           </nav>
         )}
